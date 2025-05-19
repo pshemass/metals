@@ -783,6 +783,10 @@ lazy val bench = project
     buildInfoKeys := Seq[BuildInfoKey](scalaVersion),
     buildInfoPackage := "bench",
     Jmh / bspEnabled := false,
+    assemblyMergeStrategy in assembly := {
+      case PathList("META-INF", "MANIFEST.MF") => MergeStrategy.discard
+      case _ => MergeStrategy.first
+    },
   )
   .dependsOn(unit)
   .enablePlugins(JmhPlugin)
